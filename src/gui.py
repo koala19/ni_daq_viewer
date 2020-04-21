@@ -212,7 +212,7 @@ class Window(Frame):
 
 
 root = Tk()
-root.iconbitmap('freq.ico')
+root.iconbitmap("freq.ico")
 root.geometry("1000x600")
 app = Window(root)
 root.protocol("WM_DELETE_WINDOW", app.on_closing)
