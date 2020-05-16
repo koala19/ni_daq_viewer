@@ -8,3 +8,8 @@ numpy
 nidaqmx
 matplotlib
 ```
+
+## Example
+Example screenshot
+
+![](screenshot.png)

@@ -32,8 +32,8 @@ class Window(Frame):
         self.sf = 10000
 
         # Define modules
-        self.module_options = []
-        self.get_modules()
+        self.module_options = ["module1"]
+        # self.get_modules()
         self.active_module = self.module_options[0]
 
         # Define channels
@@ -41,8 +41,8 @@ class Window(Frame):
         self.active_channel = self.channel_options[0]
 
         # Define task
-        self.task = self.get_task()
-        #self.task = None
+        #self.task = self.get_task()
+        self.task = None
         self.fig = plt.Figure(figsize=(6, 3))
         self.ax1 = self.fig.add_subplot(211)
         self.ax2 = self.fig.add_subplot(212)
@@ -135,9 +135,9 @@ class Window(Frame):
         return freq, np.abs(sp.real)/self.samples
 
     def sensors(self, i):
-        data = self.task.read(number_of_samples_per_channel=self.samples)
-        # x = np.linspace(0, samples * (1 / sf), num=samples)
-        # data = 0.15*np.sin(2*np.pi*500*x+np.random.random(1))
+        # data = self.task.read(number_of_samples_per_channel=self.samples)
+        x = np.linspace(0, self.samples * (1 / self.sf), num=self.samples)
+        data = 0.15*np.sin(2*np.pi*500*x+np.random.random(1))
         self.line.set_ydata(data)
         freq, sp = self.calc_fft(data)
         self.markerline.set_ydata(sp)
@@ -185,7 +185,8 @@ class Window(Frame):
         self.ax2.clear()
         # Refresh time axes
         t = np.linspace(0, self.samples * (1 / self.sf), num=self.samples)
-        data = self.task.read(number_of_samples_per_channel=self.samples)
+        #data = self.task.read(number_of_samples_per_channel=self.samples)
+        data = 0.15*np.sin(2*np.pi*500*t+np.random.random(1))
         self.line, = self.ax1.plot(t, data, color="lime")
         # Refresh freq axes
         freq, sp = self.calc_fft(data)
@@ -212,7 +213,7 @@ class Window(Frame):
 
 
 root = Tk()
-root.iconbitmap("freq.ico")
+# root.iconbitmap("freq.ico")
 root.geometry("1000x600")
 app = Window(root)
 root.protocol("WM_DELETE_WINDOW", app.on_closing)
